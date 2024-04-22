@@ -71,6 +71,9 @@ module.exports = function elecronReload (glob, options = {}) {
 
   // Enable default soft reset
   watcher.on('change', softResetHandler)
+  if (options.before && typeof options.before === 'function') {
+    watcher.on('change', options.before)
+  }
 
   // Preparing hard reset if electron executable is given in options
   // A hard reset is only done when the main file has changed
